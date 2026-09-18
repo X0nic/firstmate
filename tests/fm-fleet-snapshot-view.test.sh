@@ -1135,7 +1135,7 @@ test_contribution_input_assembly_failure() {
 previous=
 for arg in "$@"; do
   case "$previous:$arg" in
-    --argjson:backlog|--slurpfile:backlog)
+    --slurpfile:backlog)
       printf 'injected assembly failure\n' > "$FM_HOME/injected"
       exit 42
       ;;
