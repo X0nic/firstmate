@@ -1973,6 +1973,9 @@ contribution_tasks_json() {
   done | jq -s .
 }
 
+# Backlog and task JSON reach jq through files and --slurpfile on every output path.
+# data/backlog.md renders tens of kilobytes, which overruns the argv limit and
+# kills the whole invocation with E2BIG when passed as an --argjson value.
 JSON_TRANSPORT_DIR=$(mktemp -d "${TMPDIR:-/tmp}/fm-fleet-snapshot.XXXXXX") \
   || { echo "fm-fleet-snapshot: temporary transport directory creation failed" >&2; exit 1; }
 BACKLOG_JSON_FILE="$JSON_TRANSPORT_DIR/backlog.json"
